@@ -1,0 +1,25 @@
+Firefox container with bundled java, configured to support DRAC 6
+
+DRAC 5 is not supported
+
+# Usage
+
+## Pull image
+docker pull quay.io/brightbox/drac-browser
+
+## Allow docker to connect to your xserver
+xhost +local:docker
+
+## Run Firefox from the image specifying the drac hostname, connecting to your display
+docker run --net=host -e DISPLAY=unix$DISPLAY --volume=/tmp/.X11-unix:/tmp/.X11-unix quay.io/brightbox/drac-browser:latest firefox DRAC_HOSTNAME
+
+# Troubleshooting
+Your X11 socket may be in a different location so the --volume parameter may need adjustment eg --volume /tmp/.X11-unix:~/.X11-unix for a socket in your home directory.
+
+# On iDRAC7
+
+Connect directly from your workstation
+
+Configure the launcher to use the html5 plugin and apply the change
+
+Launch the console and accept the popups - you will need to refresh if pop ups were blocked
